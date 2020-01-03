@@ -4,13 +4,6 @@ export default _data => {
     let data = _data;
     let changed = true; // make this optional
 
-    /**
-     *
-     * @param {WebGLRenderingContext} gl
-     * @param {*} program
-     * @param {*} name
-     * @param {*} numElements
-     */
     let bind = (gl, program, name, numElements) => {
         if (numComponents != null) {
             const bufferComponents = data.length / numElements;
@@ -42,10 +35,10 @@ export default _data => {
         gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW);
     };
 
-    const build = (gl, program, name, numElements) => {
+    const build = (gl, program, name, verticesPerElement, count) => {
         if (changed) {
             changed = false;
-            bind(gl, program, name, numElements);
+            bind(gl, program, name, verticesPerElement * count);
         }
     };
 

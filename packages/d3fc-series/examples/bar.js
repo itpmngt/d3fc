@@ -36,3 +36,17 @@ var canvasBar = fc.seriesCanvasBar()
     .crossValue(function(_, i) { return i; })
     .mainValue(function(d) { return d; });
 canvasBar(data);
+
+var webgl = d3.select('#bar-webgl').node();
+webgl.width = width;
+webgl.height = height;
+var ctx = webgl.getContext('webgl');
+
+var webglBar = fc.seriesWebglBar()
+    .xScale(xScale)
+    .yScale(yScale)
+    .context(ctx)
+    .crossValue(function(_, i) { return i; })
+    .mainValue(function(d) { return d; })
+    .bandwidth(0.5);
+webglBar(data);

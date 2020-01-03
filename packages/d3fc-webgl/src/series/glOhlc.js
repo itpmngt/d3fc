@@ -7,7 +7,8 @@ import drawModes from '../program/drawModes';
 import { rebind } from '@d3fc/d3fc-rebind';
 
 export default () => {
-    const program = programBuilder();
+    const verticesPerElement = 18;
+    const program = programBuilder().verticesPerElement(verticesPerElement);
     let xScale = glScaleBase();
     let yScale = glScaleBase();
     const lineWidth = lineWidthShader();
@@ -40,7 +41,6 @@ export default () => {
         -1,
         1
     ];
-    const verticesPerElement = 18;
 
     const draw = numElements => {
         const shaderBuilder = rectShader();
@@ -64,7 +64,7 @@ export default () => {
 
         decorate(program);
 
-        program(numElements * verticesPerElement);
+        program(numElements);
     };
 
     draw.xValues = (...args) => {
@@ -120,22 +120,22 @@ export default () => {
         return draw;
     };
 
-    draw.open = (...args) => {
+    draw.openValues = (...args) => {
         addToYBuffers(args[0], [6, 7, 8, 9, 10, 11]);
         return draw;
     };
 
-    draw.high = (...args) => {
+    draw.highValues = (...args) => {
         addToYBuffers(args[0], [2, 4, 5]);
         return draw;
     };
 
-    draw.low = (...args) => {
+    draw.lowValues = (...args) => {
         addToYBuffers(args[0], [0, 1, 3]);
         return draw;
     };
 
-    draw.close = (...args) => {
+    draw.closeValues = (...args) => {
         addToYBuffers(args[0], [12, 13, 14, 15, 16, 17]);
         return draw;
     };
